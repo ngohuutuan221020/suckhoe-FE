@@ -75,6 +75,9 @@
   text-overflow: ellipsis;
   overflow: hidden;
 }
+.shimmer.shimmer-thumbnail.mb-0 {
+  width: 300px;
+}
 @media only screen and (max-width: 768px) {
   .doctor-detail-container {
     margin: 10px !important;

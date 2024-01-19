@@ -42,7 +42,7 @@ class FullDoctor extends Component {
           <Card.Body>
             <h3 style={{fontWeight: "600", textTransform: "uppercase"}}>Danh sách các bác sĩ</h3>
           </Card.Body>
-          <Row style={{gap: "1rem", justifyContent: "center", marginBottom: "1rem", flexDirection: "column"}}>
+          <Row style={{gap: "1rem", justifyContent: "center", marginBottom: "1rem"}}>
             {fullDoctor && fullDoctor.length > 0 ? (
               fullDoctor.map((item, index) => {
                 let imagebase = "";
@@ -75,7 +75,7 @@ class FullDoctor extends Component {
               })
             ) : (
               <div>
-                <ShimmerPostList postStyle="STYLE_FOUR" col={3} row={2} gap={30} />;
+                <ShimmerPostList postStyle="STYLE_FOUR" col={3} row={1} gap={30} />;
               </div>
             )}
           </Row>
