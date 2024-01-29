@@ -34,7 +34,8 @@
             "specialty": "Specialties",
             "manage-specialty": "Manage Specialties",
             "handbook": "Handbook",
-            "manage-handbook": "Manage Handbook"
+            "manage-handbook": "Manage Handbook",
+            "dashboard": "Dashboard"
         },
         "doctor": {
             "manage-infor": "Manage Doctor's Information",
@@ -59,7 +60,7 @@
     },
     "homePage": {
         "moreInfo": "More",
-        "chuyenkhoaphobien": "Popular specialties",
+        "chuyenkhoaphobien": "Specialties",
         "cosoyte": "Health facilities",
         "outStandingDoctor": "Outstanding Doctor",
         "truyenthong": "Information Communication"

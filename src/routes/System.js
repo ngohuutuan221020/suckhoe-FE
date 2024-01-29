@@ -6,6 +6,7 @@ import UserRedux from "../containers/System/Admin/UserRedux";
 import RegisterPackageGroupOrAcc from "../containers/System/RegisterPackageGroupOrAcc";
 import Header from "../containers/Header/Header";
 import ManageDoctor from "../containers/System/Admin/ManageDoctor";
+import Dashboard from "../containers/System/Admin/Dashboard";
 import ManageSpecialty from "../containers/System/Specialty/ManageSpecialty";
 import ManageClinic from "../containers/System/Clinic/ManageClinic";
 
@@ -23,6 +24,8 @@ class System extends Component {
               <Route path="/system/manage-doctor" component={ManageDoctor} />
               <Route path="/system/manage-specialty" component={ManageSpecialty} />
               <Route path="/system/manage-clinic" component={ManageClinic} />
+
+              <Route path="/system/dashboard" component={Dashboard} />
 
               <Route path="/system/register-package-group-or-account" component={RegisterPackageGroupOrAcc} />
               <Route

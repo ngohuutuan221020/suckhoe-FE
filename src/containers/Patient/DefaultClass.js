@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, {Component} from "react";
+import {connect} from "react-redux";
 import "./FormDefault.scss";
-import { LANGUAGES } from "../../../utils";
-import { FormattedMessage } from "react-intl";
+import {LANGUAGES} from "../../../utils";
+import {FormattedMessage} from "react-intl";
 
 class FormDefault extends Component {
   constructor(props) {
@@ -18,7 +18,7 @@ class FormDefault extends Component {
   }
 
   render() {
-    let { language } = this.props;
+    let {language} = this.props;
     return (
       <>
         <div className=""></div>
@@ -28,7 +28,7 @@ class FormDefault extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return { language: state.app.language };
+  return {language: state.app.language};
 };
 
 const mapDispatchToProps = (dispatch) => {

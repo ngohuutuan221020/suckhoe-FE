@@ -193,10 +193,6 @@ class UserRedux extends Component {
           <div className="user-redux-body">
             <div className="container">
               <div className="row">
-                {/* <div className="col-12 my-3">
-                  <FormattedMessage id="manage-user.add" />
-                </div> */}
-                {/* <div className="col-12">{isLoadingGender === true ? "Loading..." : ""}</div> */}
                 <div className="col-3">
                   <label>
                     <FormattedMessage id="manage-user.email" />

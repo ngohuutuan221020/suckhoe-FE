@@ -1,4 +1,8 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+git checkout master  
+git branch main master -f  
+git checkout main  
+git push origin main -f
 
 ## Available Scripts
 

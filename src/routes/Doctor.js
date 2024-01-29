@@ -18,6 +18,7 @@ class Doctor extends Component {
             <Switch>
               <Route path="/doctor/manage-schedule" component={ManageSchedule} />
               <Route path="/doctor/manage-patient" component={ManagePatient} />
+
               <Route path="/doctor/manage-patient-doctor" component={ManagePatientDoctor} />
             </Switch>
           </div>

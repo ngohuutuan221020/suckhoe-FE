@@ -75,6 +75,9 @@ const getAllPatientForDoctor = (data) => {
 const getAllPatient = (data) => {
   return axios.get(`/api/get-list-patient?date=${data.date}`);
 };
+const getAllPatientForAdmin = (data) => {
+  return axios.get(`/api/get-all-patient`);
+};
 const postSendRemedy = (data) => {
   return axios.post("/api/send-remedy", data);
 };
@@ -85,7 +88,13 @@ const getFullDoctors = () => {
 const getFullSpecialty = () => {
   return axios.get(`/api/get-full-specialty`);
 };
+const getBooking = () => {
+  return axios.get(`/api/getBooking`);
+};
+
 export {
+  getBooking,
+  getAllPatientForAdmin,
   getFullSpecialty,
   getFullDoctors,
   postSendRemedy,

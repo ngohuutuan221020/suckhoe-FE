@@ -37,7 +37,7 @@ class Login extends Component {
       }
       if (data && data.errorCode === 0) {
         this.props.userLoginSuccess(data.user);
-        console.log("Dang nhap thanh cong");
+
         toast.success("Đăng nhập thành công");
       }
     } catch (error) {

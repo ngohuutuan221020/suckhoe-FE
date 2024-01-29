@@ -184,7 +184,7 @@ export const editUserFaided = () => ({
 export const fetchTopDoctor = () => {
   return async (dispatch, getState) => {
     try {
-      let res = await getTopDoctorHomeService("");
+      let res = await getTopDoctorHomeService(6);
       if (res && res.errorCode === 0) {
         dispatch({
           type: actionTypes.FETCH_TOP_DOCTORS_SUCCESS,

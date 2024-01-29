@@ -44,6 +44,7 @@ class VerifyEmailBooking extends Component {
   render() {
     let {language} = this.props;
     let {statusVerify, errorCode} = this.state;
+
     return (
       <>
         <HomeHeader />

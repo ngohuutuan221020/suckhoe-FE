@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable no-unused-vars */
 import React, {Component} from "react";
 import {connect} from "react-redux";
@@ -12,6 +13,7 @@ import ProfileDoctor from "../Doctor/ProfileDoctor";
 import {getAllDetailClinic, getAllCodeService} from "../../../services/userService";
 import _ from "lodash";
 import Select from "react-select";
+import {Button, Card, Container, Row, Form, InputGroup} from "react-bootstrap";
 
 class DetailClinic extends Component {
   constructor(props) {
@@ -53,10 +55,17 @@ class DetailClinic extends Component {
     if (this.props.language !== prevProps.language) {
     }
   }
-
+  handleViewDetailDoctor = (item) => {
+    if (this.props.history) {
+      this.props.history.push(`/detail-specialty/${item.specialtyId}`);
+    }
+  };
   render() {
     let {language} = this.props;
     let {arrDoctorId, dataClinic} = this.state;
+
+    console.log("statecl", this.state);
+    console.log("dataClinic", dataClinic);
 
     return (
       <>
@@ -75,8 +84,47 @@ class DetailClinic extends Component {
                 </>
               )}
             </div>
+            <div>
+              <Card.Body className="textChuenKhoa">
+                <h3 style={{fontWeight: "600", fontSize: "2rem", textTransform: "uppercase"}}>
+                  Danh sách các chuyên khoa thuộc cơ sở y tế
+                </h3>
+              </Card.Body>
+              {dataClinic.doctorClinic &&
+                dataClinic.doctorClinic.length > 0 &&
+                dataClinic.doctorClinic.map((item, index) => {
+                  console.log("map", item);
+                  let imagebase = "";
+                  if (item.Specialty.image.data) {
+                    imagebase = Buffer.from(item.Specialty.image.data, "base64").toString("binary");
+                  }
 
-            {arrDoctorId &&
+                  return (
+                    <>
+                      <Card className="mb-3">
+                        <Row className="g-0">
+                          <div className="col-md-2" style={{height: "100px"}}>
+                            <img
+                              className="imgChuyenKhoa"
+                              style={{height: "100%", cursor: "pointer"}}
+                              src={imagebase}
+                              onClick={() => this.handleViewDetailDoctor(item)}
+                            />
+                            ;
+                          </div>
+                          <div className="col-md-6">
+                            <Card.Body className="textChuenKhoa" style={{fontWeight: "500", fontSize: "2rem"}}>
+                              {item.Specialty.name}
+                            </Card.Body>
+                          </div>
+                        </Row>
+                      </Card>
+                    </>
+                  );
+                })}
+            </div>
+
+            {/* {arrDoctorId &&
               arrDoctorId.length > 0 &&
               arrDoctorId.map((item, index) => {
                 return (
@@ -96,7 +144,7 @@ class DetailClinic extends Component {
                     </div>
                   </div>
                 );
-              })}
+              })} */}
           </div>
           <HomeFooter />
         </div>

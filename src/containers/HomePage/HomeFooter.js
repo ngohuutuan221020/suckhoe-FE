@@ -51,7 +51,7 @@ class HomeFooter extends Component {
 
             <div class="text-center p-3" style={{backgroundColor: "rgba(0, 0, 0, 0.2)"}}>
               © {year} Copyright:{" "}
-              <a class="text-white" href="/login">
+              <a class="text-white" href="/login" target="_blank">
                 DoAnTotNghiep | Created by Ngo Huu Tuan
               </a>
               <br />

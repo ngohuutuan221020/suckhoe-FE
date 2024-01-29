@@ -271,6 +271,7 @@ class ManageDoctor extends Component {
   };
   render() {
     let {hasOldData, listSpecialtyId} = this.state;
+
     return (
       <div className="manage-doctor-container">
         <div className="manage-doctor-title">

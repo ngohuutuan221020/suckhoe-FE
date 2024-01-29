@@ -14,6 +14,7 @@ import image from "../../../assets/Comprehensive-service/161350-iconkham-tong-qu
 import Select from "react-select";
 import {MDBDataTable} from "mdbreact";
 import "./custombootstrap.scss";
+import {getFullDoctors} from "../../../services/userService";
 
 const options = [
   {value: "New", label: "Lịch hẹn mới"},
@@ -30,10 +31,18 @@ class ManagePatientDoctor extends Component {
       isShowLoading: false,
       dataModal: {},
       selectedGenders: "",
+      listDoctor: [],
+      selectedDoctor: {},
     };
   }
   async componentDidMount() {
     this.getDataPatient();
+    let res = await getFullDoctors();
+    if (res && res.errorCode === 0) {
+      this.setState({
+        listDoctor: res.data,
+      });
+    }
   }
   getDataPatient = async () => {
     // let {userInfo} = this.props;
@@ -51,10 +60,8 @@ class ManagePatientDoctor extends Component {
     }
   };
 
-  async componentDidUpdate(prevProps, prevState, snapshot) {
-    if (this.props.language !== prevProps.language) {
-    }
-  }
+  async componentDidUpdate(prevProps, prevState, snapshot) {}
+
   handleChangeDatePicker = (date) => {
     this.setState(
       {
@@ -65,6 +72,7 @@ class ManagePatientDoctor extends Component {
       }
     );
   };
+
   handleBtn = (item) => {
     let data = {
       tenDoctor: item.doctorData.firstName,
@@ -73,12 +81,12 @@ class ManagePatientDoctor extends Component {
       phoneNumberDoctor: item.doctorData.phoneNumber,
       addressDoctor: item.doctorData.address,
       genderDoctor: item.doctorData.genderData.valueVi,
-      namePatient: item.patientData.firstName,
-      emailPatient: item.patientData.email,
-      addressPatient: item.patientData.address,
-      genderPatient: item.patientData.genderData.valueVi,
-      phonePatient: item.patientData.phoneNumber,
-      reasonPatient: item.patientData.reason,
+      namePatient: item.patientData === null ? " " : item.patientData.firstName,
+      emailPatient: item.patientData === null ? " " : item.patientData.email,
+      addressPatient: item.patientData === null ? " " : item.patientData.address,
+      genderPatient: item.patientData === null ? " " : item.patientData.genderData.valueVi,
+      phonePatient: item.patientData === null ? " " : item.patientData.phoneNumber,
+      reasonPatient: item.patientData === null ? " " : item.patientData.reason,
       statusIdDataPatient: item.statusIdDataPatient.valueVi,
       timeTypeDataPatient: item.timeTypeDataPatient.valueVi,
       updatedAt: item.updatedAt,
@@ -95,66 +103,42 @@ class ManagePatientDoctor extends Component {
       dataModal: {},
     });
   };
-
-  handleChangeSelect = (selectedOption) => {
+  handleChangeSelect = async (selectedDoctors) => {
     this.setState({
-      selectedGenders: this.state.selectedOption,
+      selectedDoctor: selectedDoctors,
     });
-    console.log("selectedGenders", this.state.selectedGenders);
-    this.setState({selectedOption}, () => console.log(`Option selected:`, this.state.selectedOption));
   };
-
-  // sendRemedyModal = async (dataChild) => {
-  //   let {dataModal} = this.state;
-  //   this.setState({
-  //     isShowLoading: true,
-  //   });
-  //   let res = await postSendRemedy({
-  //     email: dataChild.email,
-  //     imgBase64: dataChild.imgBase64,
-  //     doctorId: dataModal.doctorId,
-  //     patientId: dataModal.patientId,
-  //     timeType: dataModal.timeType,
-  //     patientName: dataModal.patientName,
-  //     language: this.props.language,
-  //   });
-  //   if (res && res.errorCode === 0) {
-  //     this.setState({
-  //       isShowLoading: false,
-  //     });
-  //     toast.success("Thành công");
-  //     this.closeRemedyModal();
-  //     await this.getDataPatient();
-  //   } else {
-  //     this.setState({
-  //       isShowLoading: false,
-  //     });
-  //     toast.error("Không thành công");
-  //   }
-  // };
   render() {
     let {language} = this.props;
-    let {dataPatient, isOpenRemedy, dataModal} = this.state;
-
+    let {dataPatient, isOpenRemedy, dataModal, listDoctor, selectedDoctor} = this.state;
+    //////////////////////////
     const Getdata = [];
+
     if (dataPatient && dataPatient.length > 0) {
-      dataPatient.forEach((item, index) => {
-        Getdata.push({
-          stt: index,
-          trangthai: item.statusIdDataPatient.valueVi,
-          thoigian: item.timeTypeDataPatient.valueVi,
-          bacsi: item.doctorData.lastName + " " + item.doctorData.firstName,
-          tenbenhnhan: item.patientData.firstName,
-          trieuchung: item.patientData.reason,
-          action: [
-            <button className="btn btn-primary" onClick={() => this.handleBtn(item)}>
-              Xem chi tiết
-            </button>,
-          ],
+      dataPatient
+        .filter((value) => {
+          if (this.state.selectedDoctor.value) {
+            return value.doctorId === this.state.selectedDoctor.value;
+          } else {
+            return true;
+          }
+        })
+        .forEach((item, index) => {
+          Getdata.push({
+            stt: index,
+            trangthai: item.statusIdDataPatient.valueVi,
+            thoigian: item.timeTypeDataPatient.valueVi,
+            bacsi: item.doctorData.lastName + " " + item.doctorData.firstName,
+            tenbenhnhan: item.patientData === null ? " " : item.patientData.firstName,
+            trieuchung: item.patientData === null ? " " : item.patientData.reason,
+            action: [
+              <button className="btn btn-primary" onClick={() => this.handleBtn(item)}>
+                Xem chi tiết
+              </button>,
+            ],
+          });
         });
-      });
     } else {
-      console.log("eror:", dataPatient);
     }
     const data = {
       columns: [
@@ -196,7 +180,23 @@ class ManagePatientDoctor extends Component {
       ],
       rows: Getdata,
     };
-    console.log(dataPatient);
+    ////////////////////////
+    const GetDataDoctor = [];
+    if (listDoctor && listDoctor.length > 0) {
+      listDoctor.forEach((item, index) => {
+        GetDataDoctor.push({
+          label: `${item.lastName} ${item.firstName}`,
+          value: item.id,
+        });
+      });
+    }
+    GetDataDoctor.unshift({
+      label: "Tất cả",
+      value: null,
+    });
+    const options = GetDataDoctor;
+    //////////////////////
+
     return (
       <>
         <LoadingOverlay active={this.state.isShowLoading} spinner text="Loading ...">
@@ -211,51 +211,15 @@ class ManagePatientDoctor extends Component {
                 </label>
                 <DatePicker className="form-control" onChange={this.handleChangeDatePicker} value={this.state.currentDate} />
               </div>
+              <div className="col-6 form-group">
+                <label>
+                  <FormattedMessage id="manage-patient.chooseDoctor" />
+                </label>
+
+                <Select value={this.state.selectedDoctor} onChange={this.handleChangeSelect} options={options} />
+              </div>
 
               <div className="col-12 table-manage-patient">
-                {/* <table>
-                  <tbody>
-                    <tr>
-                      <th>STT</th>
-                      <th>Trạng thái</th>
-                      <th>Thời gian</th>
-                      <th>Bác sĩ</th>
-                      <th>Tên bệnh nhân</th>
-                      <th>Triệu chứng</th>
-                      <th>Hành động</th>
-                    </tr>
-                    {dataPatient && dataPatient.length > 0 ? (
-                      dataPatient.map((item, index) => {
-                        return (
-                          <tr key={index}>
-                            <td>{index + 1}</td>
-                            <td>{item.statusIdDataPatient.valueVi}</td>
-                            <td>{item.timeTypeDataPatient.valueVi}</td>
-                            <td>
-                              {item.doctorData.lastName} {item.doctorData.firstName}
-                            </td>
-                            <td>{item.patientData.firstName}</td>
-                            <td>{item.patientData.reason}</td>
-                            <td>
-                              <button className="" onClick={() => this.handleBtn(item)}>
-                                Xem chi tiết
-                              </button>
-                            </td>
-                          </tr>
-                        );
-                      })
-                    ) : (
-                      <div className="container">
-                        <div className="row">
-                          <div className="col-12">
-                            <img src={image} />
-                            Không có lịch khám bệnh!
-                          </div>
-                        </div>
-                      </div>
-                    )}
-                  </tbody>
-                </table> */}
                 <MDBDataTable striped bordered small data={data} />
               </div>
             </div>

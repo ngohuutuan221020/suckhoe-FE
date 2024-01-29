@@ -113,7 +113,7 @@ class DetailSpecialty extends Component {
                 ></div>
               )}
             </div>
-            <div className="search-specialty-doctor">
+            {/* <div className="search-specialty-doctor">
               <select onChange={(event) => this.handleOnChange(event)}>
                 {listProvice &&
                   listProvice.length > 0 &&
@@ -125,7 +125,7 @@ class DetailSpecialty extends Component {
                     );
                   })}
               </select>
-            </div>
+            </div> */}
             {arrDoctorId &&
               arrDoctorId.length > 0 &&
               arrDoctorId.map((item, index) => {

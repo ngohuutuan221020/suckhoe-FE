@@ -47,15 +47,15 @@ class App extends Component {
           <div className="main-container">
             <div className="content-container">
               <ScrollToTop smooth />
-              {/* <CustomScrollBar style={{height: "100vh", width: "100%"}}> */}
+
               <Switch>
                 <Route path={path.HOME} exact component={Home} />
                 <Route path={path.HOMEPAGE} component={HomePage} />
 
                 <Route path={path.LOGIN} component={userIsNotAuthenticated(Login)} />
-                <Route path={path.SYSTEM} component={userIsAuthenticated(System)} />
 
-                <Route path={"/doctor/"} component={userIsAuthenticated(Doctor)} />
+                <Route path={path.SYSTEM} component={userIsAuthenticated(System)} />
+                <Route path={path.DOCTOR} component={userIsAuthenticated(Doctor)} />
 
                 <Route path={path.DETAIL_DOCTOR} component={DetailDoctor} />
                 <Route path={path.FULLDOCTOR} component={FullDoctor} />

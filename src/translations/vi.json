@@ -34,7 +34,8 @@
             "specialty": "Chuyên khoa",
             "manage-specialty": "Quản lý chuyên khoa",
             "handbook": "Handbook",
-            "manage-handbook": "Quản lý Handbook"
+            "manage-handbook": "Quản lý Handbook",
+            "dashboard": "Dashboard"
         },
         "doctor": {
             "manage-schedule": "Quản lý kế hoạch khám bệnh",
@@ -59,7 +60,7 @@
     },
     "homePage": {
         "moreInfo": "Xem thêm",
-        "chuyenkhoaphobien": "Chuyên khoa phổ biến",
+        "chuyenkhoaphobien": "Chuyên khoa",
         "cosoyte": "Cơ sở y tế",
         "outStandingDoctor": "Bác sĩ nổi bật",
         "truyenthong": "Thông tin truyền thông"

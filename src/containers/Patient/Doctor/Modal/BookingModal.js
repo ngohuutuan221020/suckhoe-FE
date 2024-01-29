@@ -14,6 +14,7 @@ import {toast} from "react-toastify";
 import {FormattedMessage} from "react-intl";
 import moment from "moment";
 import LoadingOverlay from "react-loading-overlay";
+import {getDoctorExtraInforById} from "../../../../services/userService";
 
 class BookingModal extends Component {
   constructor(props) {
@@ -30,10 +31,20 @@ class BookingModal extends Component {
       doctorId: "",
       timeType: "",
       isShowLoading: false,
+      // priceData: "",
     };
   }
   async componentDidMount() {
     this.props.getGenders();
+
+    // if (this.props.dataScheduleTimeModal.doctorId) {
+    //   let res = await getDoctorExtraInforById(this.state.doctorId);
+    //   if (res && res.errorCode === 0) {
+    //     this.setState({
+    //       priceData: res.data,
+    //     });
+    //   }
+    // }
   }
 
   buildDataGeners = (data) => {
@@ -89,16 +100,22 @@ class BookingModal extends Component {
       selectedGenders: selectedOptions,
     });
   };
+  // buildPrice = (price) => {
+  //   let {language} = this.props;
+  //   if (price && !_.isEmpty(price)) {
+  //     let giaDoctor = language === LANGUAGES.VI ? price.priceTypeData.valueVi : price.priceTypeData.valueEn;
+  //     return giaDoctor;
+  //   }
+  // };
   handleConfirmBooking = async () => {
     this.setState({
       isShowLoading: true,
     });
+    // let price = this.buildPrice(this.state.priceData);
     let date = new Date(this.state.birthday).getTime();
     let timeString = this.buildTimeBooking(this.props.dataScheduleTimeModal);
     let dateString = this.buildDateBooking(this.props.dataScheduleTimeModal);
     let doctorName = this.buildName(this.props.dataScheduleTimeModal);
-    console.log("this.state", this.state);
-    console.log("this.props", this.props);
     let res = await postPatientBookingAppointment({
       fullName: this.state.fullName,
       phoneNumber: this.state.phoneNumber,
@@ -115,6 +132,7 @@ class BookingModal extends Component {
       timeString: timeString,
       dateString: dateString,
       doctorName: doctorName,
+      // price: price,
     });
     this.setState({
       isShowLoading: false,
@@ -165,18 +183,7 @@ class BookingModal extends Component {
     }
     return "";
   };
-  buildPrice = (dataScheduleTimeModal) => {
-    let {language} = this.props;
-    if (dataScheduleTimeModal && !_.isEmpty(dataScheduleTimeModal)) {
-      let price =
-        language === LANGUAGES.VI
-          ? `${dataScheduleTimeModal.doctorData.lastName} ${dataScheduleTimeModal.doctorData.firstName}`
-          : `${dataScheduleTimeModal.doctorData.firstName} ${dataScheduleTimeModal.doctorData.lastName}`;
 
-      return price;
-    }
-    return "";
-  };
   render() {
     let {language, isOpenModal, handleClickCloseScheduleTime, dataScheduleTimeModal} = this.props;
     let doctorId = dataScheduleTimeModal && !_.isEmpty(dataScheduleTimeModal) ? dataScheduleTimeModal.doctorId : "";
