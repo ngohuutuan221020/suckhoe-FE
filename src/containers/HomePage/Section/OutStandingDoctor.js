@@ -11,7 +11,7 @@ import {FormattedMessage} from "react-intl";
 import {withRouter} from "react-router-dom/cjs/react-router-dom";
 import bgImage from "../../../assets/images/LOGO-SUC-KHOE.jpg";
 require("dotenv").config();
-const REACT_APP_IS_LOCALHOST = process.env.REACT_APP_IS_LOCALHOST;
+const REACT_APP_SHOW_NUMBER = process.env.REACT_APP_SHOW_NUMBER;
 
 class OutStandingDoctor extends Component {
   constructor(props) {
@@ -37,11 +37,10 @@ class OutStandingDoctor extends Component {
   };
   render() {
     let arrDoctors = this.state.arrDoctors;
-    // arrDoctors = arrDoctors.concat(arrDoctors).concat(arrDoctors);
     let {language} = this.props;
     console.log("state", this.state);
-    console.log("arrDoctors", arrDoctors);
     console.log("props", this.props);
+    console.log("arrDoctors", arrDoctors);
     return (
       <React.Fragment>
         <div className="section-share section-outStanding-doctor">
@@ -76,7 +75,7 @@ class OutStandingDoctor extends Component {
                             />
                             <div className="position text-center">
                               <div>{language === LANGUAGES.VI ? nameVi : nameEn}</div>
-                              {+REACT_APP_IS_LOCALHOST === 1 ? (
+                              {+REACT_APP_SHOW_NUMBER === 1 ? (
                                 <div style={{color: "#167ac6"}}>Tổng số ca khám: {item.Doctor_Infor.count}</div>
                               ) : (
                                 <></>
